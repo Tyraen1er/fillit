@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 01:40:01 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/07 16:36:12 by lmazzi           ###   ########.fr       */
+/*   Updated: 2017/02/08 02:29:32 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	*ft_assim(t_riche *S, t_lry t, int y)
 {
 	int	a;
 
-	write(1, "ok1\n", 4);
 	a = -1;
 	while (++a < 4)
 		S->map[a + y] |= (unsigned short)(t >> ((3 - a) * 16));

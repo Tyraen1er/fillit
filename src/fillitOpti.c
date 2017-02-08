@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 03:15:51 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/07 17:10:16 by lmazzi           ###   ########.fr       */
+/*   Updated: 2017/02/08 02:28:19 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,35 +57,6 @@ char	*ft_display(t_lry piece, int y, int p, int square)
 	}
 	return (end);
 }
-char	*ft_fdisplay(t_lry piece, int y, int p, int square)
-{
-	char	end[183] = {0};
-	int			a;
-	int			b;
-
-	a = 0;
-	b = 0;
-	if (!end[0])
-		while (b < square && ++a)
-		{
-			if (a == square + 1 && !(a = 0) && ++b)
-				end[a - 1 + b * (square + 1)] = '\n';
-			else
-				end[a - 1 + b * (square + 1)] = '.';
-		}
-	end[square * (square + 1) - 1] = '\0';
-	a = -1;
-	b = 0;
-	while (b < 4)
-	{
-		++a;
-		if (a == square && ++b)
-			a = -1;
-		if (((t_lry)0x8000000000000000ull >> (a + b * 16)) & piece)
-			end[a + b * (square + 1) + y * (square + 1)] = p + 'A';
-	}
-	return (end);
-}
 
 int		backtracking(t_lry *pieces, int p, int square, t_riche *S)
 {
@@ -103,40 +74,22 @@ int		backtracking(t_lry *pieces, int p, int square, t_riche *S)
 		x = 0;
 	xm = ft_length(pieces[p], 'x');
 	ym = ft_length(pieces[p], 'y');
-	ft_putstr("pieces qui rentre dans le backtracking\n");
-	ft_putstr(ft_fdisplay((pieces[p] >> 0), y, p, square));
-	ft_putstr("\n");
-	ft_putstr("situation de la map :\n");
-	ft_putstr(ft_fdisplay(ft_scan(S->map, y), y, p - 1, square));
-	ft_putstr("\n");
 	while (a == 0)
 	{
 	while ((ft_scan(S->map, y) & (pieces[p] >> x)) != 0)
 	{
-		ft_putstr("piece rentre dans la boucle while\n");
-		ft_putstr(ft_fdisplay((pieces[p] >> x), y, p, square));
-		ft_putstr("\n");
 		x++;
 		if (square < (x + xm) && ++y)
 			x = 0;
 		if (square < (y + ym))
 			return (0);
-		ft_putstr("piece sort de la boucle while\n");
 	}
-	ft_putstr("sortie definitive de la piece de la boucle while\n");
-	ft_putstr("\n");
 	if (ft_scan(S->map, y) & (pieces[p] >> x) || square < y + ym || square < x + xm)
 		return (0);
-	ft_putstr("insertion de la piece dans la map:\n");
-	ft_putstr(ft_fdisplay((pieces[p] >> x), y, p, square));
 	ft_assim(S, (pieces[p] >> x), y);
-	ft_putstr("map apres insertion:\n");
-	ft_putstr(ft_fdisplay(ft_scan(S->map, y), y, p, square));
-	ft_putstr("\n");
 	if (p == S->nbp - 1)
 	{
 		ending = ft_display((pieces[p] >> x), y, p, square);
-		ft_putstr("\n\n");
 		return (1);
 	}
 	a = backtracking(pieces, p + 1, square, S);
@@ -148,8 +101,8 @@ int		backtracking(t_lry *pieces, int p, int square, t_riche *S)
 	}
 	}
 	ending = ft_display((pieces[p] >> x), y, p, square);
-	ft_putstr("\nsolution finale: \n");
-	ft_putstr(ending);
+	if (!p)
+		ft_putstr(ending);
 	return (1);
 }
 
@@ -186,7 +139,6 @@ int		begin(t_lry *pieces, t_riche *S)
 				S->y = 0;
 				S->x = 0;
 				++square;
-				ft_putstr("augmente carree\n");
 			}
 		}
 	}
