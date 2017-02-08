@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 01:40:01 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/05 00:11:00 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/02/07 16:36:12 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,23 @@ int     ft_length(t_lry piece, int xy)
 	return (xy + 1);
 }
 
-void	ft_assim(t_riche *S, t_lry t, int y)
+void	*ft_assim(t_riche *S, t_lry t, int y)
+{
+	int	a;
+
+	write(1, "ok1\n", 4);
+	a = -1;
+	while (++a < 4)
+		S->map[a + y] |= (unsigned short)(t >> ((3 - a) * 16));
+	return (S);
+}
+
+void *ft_dassim(t_riche *S, t_lry t, int y)
 {
 	int	a;
 
 	a = -1;
 	while (++a < 4)
-		S->map[a] |= (unsigned short)t >> ((3 - a) * 16);
+		S->map[a + y] ^= (unsigned short)(t >> ((3 - a) * 16));
+	return (S);
 }
