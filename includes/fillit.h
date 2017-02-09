@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/23 06:02:10 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/09 05:55:07 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/02/09 06:02:44 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct		s_wag
 
 t_lry				ft_scan(unsigned short *map, int y);
 int					ft_length(t_lry piece, int xy);
-void				*ft_assim(t_riche *S, t_lry t, int y);
-void				*ft_dassim(t_riche *S, t_lry t, int y);
+void				*ft_assim(t_riche *structure, t_lry t, int y);
+void				*ft_dassim(t_riche *structure, t_lry t, int y);
 
 #endif
