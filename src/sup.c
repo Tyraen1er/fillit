@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 01:40:01 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/08 21:14:02 by lmazzi           ###   ########.fr       */
+/*   Updated: 2017/02/09 07:59:04 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,19 @@ void	*ft_dassim(t_riche *s, t_lry t, int y)
 	while (++a < 4)
 		s->map[a + y] ^= (unsigned short)(t >> ((3 - a) * 16));
 	return (s);
+}
+
+void	ft_opti(int *x, int *y, t_riche s, t_lry *pcs)
+{
+	static int	p = 0;
+	int			a;
+
+	if (*x = -1)
+
+	a = p;
+	s->opt[p] = pcs[p];
+	while (a--)
+	{
+
+	}
 }

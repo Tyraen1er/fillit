@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/23 06:02:10 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/09 06:02:44 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/02/09 07:59:00 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct		s_wag
 	int				y;
 	int				p;
 	int				nbp;
+	t_lry			*opt;
 	unsigned short	*map;
 }					t_riche;
 
