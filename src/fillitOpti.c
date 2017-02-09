@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 03:15:51 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/09 06:11:49 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/02/08 22:01:32 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		backtracking(t_lry *pieces, int p, int square, t_riche *s)
 	int			ym;
 	int			a;
 
-	x = s->x;
+	x = 0;
 	y = 0;
 	a = 0;
 	if (p != 0)
@@ -76,29 +76,25 @@ int		backtracking(t_lry *pieces, int p, int square, t_riche *s)
 	ym = ft_length(pieces[p], 'y');
 	while (a == 0)
 	{
-	while ((ft_scan(s->map, y) & (pieces[p] >> x)) != 0)
-	{
-		x++;
-		if (square < (x + xm) && ++y)
-			x = 0;
-		if (square < (y + ym))
+		while ((ft_scan(s->map, y) & (pieces[p] >> x)) != 0)
+		{
+			x++;
+			if (square < (x + xm) && ++y)
+				x = 0;
+			if (square < (y + ym))
+				return (0);
+		}
+		if (ft_scan(s->map, y) & (pieces[p] >> x) || square < y + ym || square < x + xm)
 			return (0);
-	}
-	if (ft_scan(s->map, y) & (pieces[p] >> x) || square < y + ym || square < x + xm)
-		return (0);
-	ft_assim(s, (pieces[p] >> x), y);
-	if (p == s->nbp - 1)
-	{
-		ending = ft_display((pieces[p] >> x), y, p, square);
-		return (1);
-	}
-	a = backtracking(pieces, p + 1, square, s);
-	if (a == 0)
-	{
-		ft_dassim(s, (pieces[p] >> x), y);
-		x++;
-		s->x = x;
-	}
+		ft_assim(s, (pieces[p] >> x), y);
+		if (p == s->nbp - 1)
+		{
+			ending = ft_display((pieces[p] >> x), y, p, square);
+			return (1);
+		}
+		a = backtracking(pieces, p + 1, square, s);
+		if (a == 0 && ft_dassim(s, (pieces[p] >> x), y))
+			x++;
 	}
 	ending = ft_display((pieces[p] >> x), y, p, square);
 	if (!p)
@@ -126,21 +122,8 @@ int		begin(t_lry *pieces, t_riche *s)
 	{
 		s->map = (unsigned short[16]){0};
 		a = backtracking(pieces, 0, square, s);
-		if (a == 0) 
-		{
-			s->x++;
-			if (square < (s->x + xm))
-			{
-				s->y++;
-				s->x = 0;
-			}
-			if (square < (s->y + ym))
-			{
-				s->y = 0;
-				s->x = 0;
-				++square;
-			}
-		}
+		if (a == 0)
+			++square;
 	}
 	return (0);
 }
