@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 03:15:51 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/08 22:17:43 by lmazzi           ###   ########.fr       */
+/*   Updated: 2017/02/08 23:06:19 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,12 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 		if (p == s->nbp - 1)
 		{
 			ending = ft_display((pcs[p] >> x), y, p, sqr);
+			if (s->nbp == 1)
+				ft_putstr(ending);
 			return (1);
 		}
-		s->p = backtracking(pcs, p + 1, sqr, s);
+		if (s->nbp != 1)
+			s->p = backtracking(pcs, p + 1, sqr, s);
 		if (s->p == 0 && ft_dassim(s, (pcs[p] >> x), y))
 			x++;
 	}
@@ -103,24 +106,16 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 int		begin(t_lry *pcs, t_riche *s)
 {
 	int				sqr;
-	int				a;
-	int				xm;
-	int				ym;
-	int				p;
 
-	xm = ft_length(pcs[0], 'x');
-	ym = ft_length(pcs[0], 'y');
-	a = 0;
-	s->x = 0;
-	s->y = 0;
+	s->p = 0;
 	sqr = ft_root(2, (4 * s->nbp));
 	if (sqr * sqr < (4 * s->nbp))
 		++sqr;
-	while (a == 0)
+	while (!s->p)
 	{
 		s->map = (unsigned short[16]){0};
-		a = backtracking(pcs, 0, sqr, s);
-		if (a == 0)
+		s->p = backtracking(pcs, 0, sqr, s);
+		if (!s->p)
 			++sqr;
 	}
 	return (0);
