@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 21:52:05 by eferrand          #+#    #+#             */
-/*   Updated: 2017/01/31 21:59:39 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/02/09 04:22:18 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 int		ft_power(int a, int b)
 {
-	return(!b ? 1 : (a * ft_power(a, b - 1)));
+	return (!b ? 1 : (a * ft_power(a, b - 1)));
 }

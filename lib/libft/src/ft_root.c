@@ -6,13 +6,13 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 21:51:46 by eferrand          #+#    #+#             */
-/*   Updated: 2017/01/31 22:00:32 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/02/09 04:22:34 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_root(int a, int b)
+int	ft_root(int a, int b)
 {
 	int c;
 

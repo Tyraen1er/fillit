@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 01:40:01 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/08 02:29:32 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/02/09 05:57:34 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ t_lry	ft_scan(unsigned short *map, int y)
 int     ft_length(t_lry piece, int xy)
 {
 	if (xy == 'x' && (xy = 3))
-		while (!(piece & (txmap >> xy)))
+		while (!(piece & (TXMAP >> xy)))
 			--xy;
 	if (xy == 'y' && (xy = 3))
-		while (!(piece & (tymap >> (16 * xy))))
+		while (!(piece & (TYMAP >> (16 * xy))))
 			--xy;
 	return (xy + 1);
 }
