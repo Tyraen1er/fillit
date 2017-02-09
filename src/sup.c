@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 01:40:01 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/09 05:57:34 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/02/08 21:14:02 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_lry	ft_scan(unsigned short *map, int y)
 	return (new);
 }
 
-int     ft_length(t_lry piece, int xy)
+int		ft_length(t_lry piece, int xy)
 {
 	if (xy == 'x' && (xy = 3))
 		while (!(piece & (TXMAP >> xy)))
@@ -32,22 +32,22 @@ int     ft_length(t_lry piece, int xy)
 	return (xy + 1);
 }
 
-void	*ft_assim(t_riche *S, t_lry t, int y)
+void	*ft_assim(t_riche *s, t_lry t, int y)
 {
 	int	a;
 
 	a = -1;
 	while (++a < 4)
-		S->map[a + y] |= (unsigned short)(t >> ((3 - a) * 16));
-	return (S);
+		s->map[a + y] |= (unsigned short)(t >> ((3 - a) * 16));
+	return (s);
 }
 
-void *ft_dassim(t_riche *S, t_lry t, int y)
+void	*ft_dassim(t_riche *s, t_lry t, int y)
 {
 	int	a;
 
 	a = -1;
 	while (++a < 4)
-		S->map[a + y] ^= (unsigned short)(t >> ((3 - a) * 16));
-	return (S);
+		s->map[a + y] ^= (unsigned short)(t >> ((3 - a) * 16));
+	return (s);
 }
