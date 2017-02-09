@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 03:15:51 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/08 22:01:32 by lmazzi           ###   ########.fr       */
+/*   Updated: 2017/02/08 22:17:43 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,102 +28,100 @@ int		rbt(t_lry *p)
 	return (-1);
 }
 
-char	*ft_display(t_lry piece, int y, int p, int square)
+char	*ft_display(t_lry piece, int y, int p, int sqr)
 {
 	static char	end[183] = {0};
 	int			a;
 	int			b;
 
 	a = 0;
-	b = 0;
-	if (!end[0])
-		while (b < square && ++a)
+	if (!end[0] && !(b = 0))
+		while (b < sqr && ++a)
 		{
-			if (a == square + 1 && !(a = 0) && ++b)
-				end[a - 1 + b * (square + 1)] = '\n';
+			if (a == sqr + 1 && !(a = 0) && ++b)
+				end[a - 1 + b * (sqr + 1)] = '\n';
 			else
-				end[a - 1 + b * (square + 1)] = '.';
+				end[a - 1 + b * (sqr + 1)] = '.';
 		}
-	end[square * (square + 1) - 1] = '\0';
+	end[sqr * (sqr + 1) - 1] = '\0';
 	a = -1;
 	b = 0;
 	while (b < 4)
 	{
 		++a;
-		if (a == square && ++b)
+		if (a == sqr && ++b)
 			a = -1;
 		if (((t_lry)0x8000000000000000ull >> (a + b * 16)) & piece)
-			end[a + b * (square + 1) + y * (square + 1)] = p + 'A';
+			end[a + b * (sqr + 1) + y * (sqr + 1)] = p + 'A';
 	}
 	return (end);
 }
 
-int		backtracking(t_lry *pieces, int p, int square, t_riche *s)
+int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 {
 	static char	*ending;
 	int			x;
 	int			y;
 	int			xm;
 	int			ym;
-	int			a;
 
 	x = 0;
 	y = 0;
-	a = 0;
+	s->p = 0;
 	if (p != 0)
 		x = 0;
-	xm = ft_length(pieces[p], 'x');
-	ym = ft_length(pieces[p], 'y');
-	while (a == 0)
+	xm = ft_length(pcs[p], 'x');
+	ym = ft_length(pcs[p], 'y');
+	while (s->p == 0)
 	{
-		while ((ft_scan(s->map, y) & (pieces[p] >> x)) != 0)
+		while ((ft_scan(s->map, y) & (pcs[p] >> x)) != 0)
 		{
 			x++;
-			if (square < (x + xm) && ++y)
+			if (sqr < (x + xm) && ++y)
 				x = 0;
-			if (square < (y + ym))
+			if (sqr < (y + ym))
 				return (0);
 		}
-		if (ft_scan(s->map, y) & (pieces[p] >> x) || square < y + ym || square < x + xm)
+		if (ft_scan(s->map, y) & (pcs[p] >> x) || sqr < y + ym || sqr < x + xm)
 			return (0);
-		ft_assim(s, (pieces[p] >> x), y);
+		ft_assim(s, (pcs[p] >> x), y);
 		if (p == s->nbp - 1)
 		{
-			ending = ft_display((pieces[p] >> x), y, p, square);
+			ending = ft_display((pcs[p] >> x), y, p, sqr);
 			return (1);
 		}
-		a = backtracking(pieces, p + 1, square, s);
-		if (a == 0 && ft_dassim(s, (pieces[p] >> x), y))
+		s->p = backtracking(pcs, p + 1, sqr, s);
+		if (s->p == 0 && ft_dassim(s, (pcs[p] >> x), y))
 			x++;
 	}
-	ending = ft_display((pieces[p] >> x), y, p, square);
+	ending = ft_display((pcs[p] >> x), y, p, sqr);
 	if (!p)
 		ft_putstr(ending);
 	return (1);
 }
 
-int		begin(t_lry *pieces, t_riche *s)
+int		begin(t_lry *pcs, t_riche *s)
 {
-	int				square;
+	int				sqr;
 	int				a;
 	int				xm;
 	int				ym;
 	int				p;
 
-	xm = ft_length(pieces[0], 'x');
-	ym = ft_length(pieces[0], 'y');
+	xm = ft_length(pcs[0], 'x');
+	ym = ft_length(pcs[0], 'y');
 	a = 0;
 	s->x = 0;
 	s->y = 0;
-	square = ft_root(2, (4 * s->nbp));
-	if (square * square < (4 * s->nbp))
-		++square;
+	sqr = ft_root(2, (4 * s->nbp));
+	if (sqr * sqr < (4 * s->nbp))
+		++sqr;
 	while (a == 0)
 	{
 		s->map = (unsigned short[16]){0};
-		a = backtracking(pieces, 0, square, s);
+		a = backtracking(pcs, 0, sqr, s);
 		if (a == 0)
-			++square;
+			++sqr;
 	}
 	return (0);
 }
@@ -145,8 +143,8 @@ int		ft_save(char *r, t_riche *s)
 					if (r[s->x + 5 * s->y + 21 * s->p] != '#' &&
 							r[s->x + 5 * s->y + 21 * s->p] != '.')
 						return (-1);
-					pc[s->p] |= (t_lry)(r[s->x + 5 * s->y + 21 * s->p] == '#') <<
-						(15 - s->x + (3 - s->y) * 16);
+					pc[s->p] |= (t_lry)(r[s->x + 5 * s->y + 21 * s->p] == '#')
+						<< (15 - s->x + (3 - s->y) * 16);
 				}
 			}
 		if (rbt(&pc[s->p]) || (r[20 + 21 * s->p] != '\n' && r[20 + 21 * s->p]))
@@ -159,7 +157,7 @@ int		ft_save(char *r, t_riche *s)
 
 int		main(int argc, char **argv)
 {
-	char r[547];
+	char	r[547];
 	t_riche	s[1];
 	int		x;
 	int		y;
@@ -171,7 +169,7 @@ int		main(int argc, char **argv)
 			(x = read(y, r, 546)) == -1)
 	{
 		ft_putstr("Erreur Open/read\n");
-		return(0);
+		return (0);
 	}
 	while (21 * s->nbp <= x)
 		++s->nbp;
