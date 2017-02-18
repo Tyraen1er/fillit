@@ -163,7 +163,7 @@ int		main(int argc, char **argv)
 	if (argc != 2 || (y = open(argv[1], O_RDONLY)) == -1 ||
 			(x = read(y, r, 546)) == -1)
 	{
-		ft_putstr("Erreur Open/read\n");
+		ft_putstr("error\n");
 		return (0);
 	}
 	while (21 * s->nbp <= x)
@@ -172,6 +172,6 @@ int		main(int argc, char **argv)
 	s->p = -1;
 	s->p = ft_save(r, s);
 	if (s->p == -1)
-		ft_putstr("s->map refusée\n");
+		ft_putstr("error\n");
 	return (0);
 }
