@@ -65,14 +65,13 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 	int			xm;
 	int			ym;
 
+	ft_opti(x, y, *s, pcs[p]);
 	x = 0;
 	y = 0;
 	s->p = 0;
-	if (p != 0)
-		x = 0;
 	xm = ft_length(pcs[p], 'x');
 	ym = ft_length(pcs[p], 'y');
-	while (s->p == 0)
+	while (!s->p)
 	{
 		while ((ft_scan(s->map, y) & (pcs[p] >> x)) != 0)
 		{
@@ -93,9 +92,15 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 			return (1);
 		}
 		if (s->nbp != 1)
+		{
+			ft_addPcOpti();
 			s->p = backtracking(pcs, p + 1, sqr, s);
+		}
 		if (s->p == 0 && ft_dassim(s, (pcs[p] >> x), y))
-			x++;
+		{
+			ft_addPcOpti();
+			++x;
+		}
 	}
 	ending = ft_display((pcs[p] >> x), y, p, sqr);
 	if (!p)
