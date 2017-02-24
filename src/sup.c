@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 01:40:01 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/24 02:37:52 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/02/24 02:55:52 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	*ft_assim(t_riche *s, t_lry t, int y, int choice)
 	return (s);
 }
 
-void ft_addOpti(t_lry pc, t_riche *s, int x, int y)
+int		ft_addOpti(t_lry pc, t_riche *s, int x, int y)
 {
 	int		a;
 
@@ -59,6 +59,7 @@ void ft_addOpti(t_lry pc, t_riche *s, int x, int y)
 	s->opt[a] = pc;
 	s->optx[a] = x;
 	s->opty[a] = y;
+	return (0);
 }
 
 void	ft_opti(int *x, int *y, t_riche *s, t_lry pc)

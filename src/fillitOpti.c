@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 03:15:51 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/24 02:49:01 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/02/24 03:07:04 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,7 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 	{
 		while ((Scan(s->map, y, 0) & (pcs[p] >> x)) != 0)
 		{
-			x++;
-			if (sqr < (x + xm) && ++y)
+			if (++x && sqr < (x + xm) && ++y)
 				x = 0;
 			if (sqr < (y + ym))
 				return (0);
@@ -91,16 +90,11 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 				ft_putstr(ending);
 			return (1);
 		}
-		if (s->nbp != 1)
-		{
-			ft_addOpti(pcs[p], s, x, y);
+		if (s->nbp != 1 && !ft_addOpti(pcs[p], s, x, y))
 			s->p = backtracking(pcs, p + 1, sqr, s);
-		}
-		if (s->p == 0 && ft_assim(s, (pcs[p] >> x), y, 0))
-		{
-			ft_addOpti(pcs[p], s, 0, 0);
+		if (s->p == 0 && ft_assim(s, (pcs[p] >> x), y, 0)
+				&& !ft_addOpti(pcs[p], s, 0, 0))
 			++x;
-		}
 	}
 	ending = ft_display((pcs[p] >> x), y, p, sqr);
 	if (!p)

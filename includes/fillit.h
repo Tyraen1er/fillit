@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/23 06:02:10 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/24 02:38:35 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/02/24 03:05:30 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct		s_wag
 
 t_lry				Scan(unsigned short *map, int xy, t_lry pc);
 void				*ft_assim(t_riche *structure, t_lry t, int y, int choice);
-void				ft_addOpti(t_lry pc, t_riche *s, int x, int y);
+int					ft_addOpti(t_lry pc, t_riche *s, int x, int y);
 void				ft_opti(int *x, int *y, t_riche *s, t_lry pc);
 
 #endif
