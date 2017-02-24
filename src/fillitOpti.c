@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 03:15:51 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/08 23:06:19 by lmazzi           ###   ########.fr       */
+/*   Updated: 2017/02/24 02:04:29 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 	int			xm;
 	int			ym;
 
-	ft_opti(x, y, *s, pcs[p]);
+	ft_opti(&x, &y, s, pcs[p]);
 	x = 0;
 	y = 0;
 	s->p = 0;
@@ -83,7 +83,7 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 		}
 		if (ft_scan(s->map, y) & (pcs[p] >> x) || sqr < y + ym || sqr < x + xm)
 			return (0);
-		ft_assim(s, (pcs[p] >> x), y);
+		ft_assim(s, (pcs[p] >> x), y, 1);
 		if (p == s->nbp - 1)
 		{
 			ending = ft_display((pcs[p] >> x), y, p, sqr);
@@ -93,12 +93,12 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 		}
 		if (s->nbp != 1)
 		{
-			ft_addPcOpti();
+			ft_addOpti(pcs[p], s, x, y);
 			s->p = backtracking(pcs, p + 1, sqr, s);
 		}
-		if (s->p == 0 && ft_dassim(s, (pcs[p] >> x), y))
+		if (s->p == 0 && ft_assim(s, (pcs[p] >> x), y, 0))
 		{
-			ft_addPcOpti();
+			ft_addOpti(pcs[p], s, 0, 0);
 			++x;
 		}
 	}
@@ -165,6 +165,9 @@ int		main(int argc, char **argv)
 	x = 0;
 	y = 0;
 	s->nbp = 0;
+	s->opt = (t_lry[19]){0};
+	s->optx = (int[19]){0};
+	s->opty = (int[19]){0};
 	if (argc != 2 || (y = open(argv[1], O_RDONLY)) == -1 ||
 			(x = read(y, r, 546)) == -1)
 	{

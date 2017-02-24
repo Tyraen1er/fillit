@@ -6,11 +6,12 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 01:40:01 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/09 07:59:04 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/02/24 02:05:41 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+#include <stdio.h>
 
 t_lry	ft_scan(unsigned short *map, int y)
 {
@@ -32,37 +33,40 @@ int		ft_length(t_lry piece, int xy)
 	return (xy + 1);
 }
 
-void	*ft_assim(t_riche *s, t_lry t, int y)
+void	*ft_assim(t_riche *s, t_lry t, int y, int choice)
 {
 	int	a;
 
 	a = -1;
-	while (++a < 4)
-		s->map[a + y] |= (unsigned short)(t >> ((3 - a) * 16));
+	if (choice)
+		while (++a < 4)
+			s->map[a + y] |= (unsigned short)(t >> ((3 - a) * 16));
+	else
+		while (++a < 4)
+			s->map[a + y] ^= (unsigned short)(t >> ((3 - a) * 16));
 	return (s);
 }
 
-void	*ft_dassim(t_riche *s, t_lry t, int y)
+void ft_addOpti(t_lry pc, t_riche *s, int x, int y)
 {
-	int	a;
+	int		a;
 
-	a = -1;
-	while (++a < 4)
-		s->map[a + y] ^= (unsigned short)(t >> ((3 - a) * 16));
-	return (s);
+	a = 0;
+	while (s->opt[a] != pc && s->opt[a])
+		++a;
+	s->opt[a] = pc;
+	s->optx[a] = x;
+	s->opty[a] = y;
 }
 
-void	ft_opti(int *x, int *y, t_riche s, t_lry *pcs)
+void	ft_opti(int *x, int *y, t_riche *s, t_lry pc)
 {
 	static int	p = 0;
 	int			a;
 
-	if (*x = -1)
-
-	a = p;
-	s->opt[p] = pcs[p];
-	while (a--)
-	{
-
-	}
+	a = 0;
+	while (s->opt[a] != pc && s->opt[a])
+		++a;
+	*x = s->optx[a];
+	*y = s->opty[a];
 }
