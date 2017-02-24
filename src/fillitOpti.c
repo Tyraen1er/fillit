@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 03:15:51 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/24 02:04:29 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/02/24 02:49:01 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 	x = 0;
 	y = 0;
 	s->p = 0;
-	xm = ft_length(pcs[p], 'x');
-	ym = ft_length(pcs[p], 'y');
+	xm = (int)Scan(NULL, 'x', pcs[p]);
+	ym = (int)Scan(NULL, 'y', pcs[p]);
 	while (!s->p)
 	{
-		while ((ft_scan(s->map, y) & (pcs[p] >> x)) != 0)
+		while ((Scan(s->map, y, 0) & (pcs[p] >> x)) != 0)
 		{
 			x++;
 			if (sqr < (x + xm) && ++y)
@@ -81,7 +81,7 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 			if (sqr < (y + ym))
 				return (0);
 		}
-		if (ft_scan(s->map, y) & (pcs[p] >> x) || sqr < y + ym || sqr < x + xm)
+		if (Scan(s->map, y, 0) & (pcs[p] >> x) || sqr < y + ym || sqr < x + xm)
 			return (0);
 		ft_assim(s, (pcs[p] >> x), y, 1);
 		if (p == s->nbp - 1)
