@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 03:15:51 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/28 01:04:41 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/02/27 16:24:17 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ char	*ft_display(t_lry piece, int y, int p, int sqr)
 			a = -1;
 		if (((t_lry)0x8000000000000000ull >> (a + b * 16)) & piece)
 		{
-//			if (p == 26)
-//				end[a + b * (sqr + 1) + y * (sqr + 1)] = '.';
-//			else
+			if (p == 26)
+				end[a + b * (sqr + 1) + y * (sqr + 1)] = '.';
+			else
 				end[a + b * (sqr + 1) + y * (sqr + 1)] = p + 'A';
 		}
 	}
@@ -91,9 +91,9 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 		ft_assim(s, (pcs[p] >> x), y, 1);
 		if (p == s->nbp - 1)
 		{
-//			ending = ft_display((pcs[p] >> x), y, p, sqr);
-//			if (s->nbp == 1)
-//				ft_putstr(ending);
+			ending = ft_display((pcs[p] >> x), y, p, sqr);
+			if (s->nbp == 1)
+				ft_putstr(ending);
 			return (1);
 		}
 		if (s->nbp != 1 && !ft_addOpti(pcs[p], s, x, y))
