@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 03:15:51 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/24 03:07:04 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/02/28 01:04:41 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 int		rbt(t_lry *p)
 {
+	if (*p)
+	{
 	while (!(T2 & *p))
 		*p = *p << 1;
 	while (!(T1 & *p))
@@ -25,6 +27,7 @@ int		rbt(t_lry *p)
 			!(*p ^ T13) || !(*p ^ T14) || !(*p ^ T15) || !(*p ^ T16) ||
 			!(*p ^ T17) || !(*p ^ T18) || !(*p ^ T19))
 		return (0);
+	}
 	return (-1);
 }
 
@@ -52,7 +55,12 @@ char	*ft_display(t_lry piece, int y, int p, int sqr)
 		if (a == sqr && ++b)
 			a = -1;
 		if (((t_lry)0x8000000000000000ull >> (a + b * 16)) & piece)
-			end[a + b * (sqr + 1) + y * (sqr + 1)] = p + 'A';
+		{
+//			if (p == 26)
+//				end[a + b * (sqr + 1) + y * (sqr + 1)] = '.';
+//			else
+				end[a + b * (sqr + 1) + y * (sqr + 1)] = p + 'A';
+		}
 	}
 	return (end);
 }
@@ -66,8 +74,6 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 	int			ym;
 
 	ft_opti(&x, &y, s, pcs[p]);
-	x = 0;
-	y = 0;
 	s->p = 0;
 	xm = (int)Scan(NULL, 'x', pcs[p]);
 	ym = (int)Scan(NULL, 'y', pcs[p]);
@@ -85,16 +91,31 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 		ft_assim(s, (pcs[p] >> x), y, 1);
 		if (p == s->nbp - 1)
 		{
-			ending = ft_display((pcs[p] >> x), y, p, sqr);
-			if (s->nbp == 1)
-				ft_putstr(ending);
+//			ending = ft_display((pcs[p] >> x), y, p, sqr);
+//			if (s->nbp == 1)
+//				ft_putstr(ending);
 			return (1);
 		}
 		if (s->nbp != 1 && !ft_addOpti(pcs[p], s, x, y))
+		{
+//			ending = ft_display((pcs[p] >> x), y, p, sqr);
+//			ft_putstr(ending);
+//			write(1, "\n\n", 2);
 			s->p = backtracking(pcs, p + 1, sqr, s);
+		}
 		if (s->p == 0 && ft_assim(s, (pcs[p] >> x), y, 0)
 				&& !ft_addOpti(pcs[p], s, 0, 0))
-			++x;
+		{
+//			write(1, "Piece :",7);
+//			ft_putchar(p + 1 + 'A');
+//			write(1, "\n\n", 2);
+//			ending = ft_display((pcs[p] >> x), y, 26, sqr);
+//			ft_putstr(ending);
+//			write(1, "\n\n", 2);
+			if (++x && sqr < (x + xm) && ++y)
+				x = 0;
+//			printf("--------------\nposition de %c\nx = %d\ny = %d\n------------\n",p + 'A',x,y);
+		}
 	}
 	ending = ft_display((pcs[p] >> x), y, p, sqr);
 	if (!p)
@@ -105,6 +126,7 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 int		begin(t_lry *pcs, t_riche *s)
 {
 	int				sqr;
+	int 			opt[4];
 
 	s->p = 0;
 	sqr = ft_root(2, (4 * s->nbp));
