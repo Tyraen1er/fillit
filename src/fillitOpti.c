@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 03:15:51 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/27 17:15:40 by lmazzi           ###   ########.fr       */
+/*   Updated: 2017/02/28 03:02:29 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ int		rbt(t_lry *p)
 {
 	if (*p)
 	{
-	while (!(T2 & *p))
-		*p = *p << 1;
-	while (!(T1 & *p))
-		*p = *p << 16;
-	if (!(*p ^ T1) || !(*p ^ T2) || !(*p ^ T3) || !(*p ^ T4) ||
-			!(*p ^ T5) || !(*p ^ T6) || !(*p ^ T7) || !(*p ^ T8) ||
-			!(*p ^ T9) || !(*p ^ T10) || !(*p ^ T11) || !(*p ^ T12) ||
-			!(*p ^ T13) || !(*p ^ T14) || !(*p ^ T15) || !(*p ^ T16) ||
-			!(*p ^ T17) || !(*p ^ T18) || !(*p ^ T19))
-		return (0);
+		while (!(T2 & *p))
+			*p = *p << 1;
+		while (!(T1 & *p))
+			*p = *p << 16;
+		if (!(*p ^ T1) || !(*p ^ T2) || !(*p ^ T3) || !(*p ^ T4) ||
+				!(*p ^ T5) || !(*p ^ T6) || !(*p ^ T7) || !(*p ^ T8) ||
+				!(*p ^ T9) || !(*p ^ T10) || !(*p ^ T11) || !(*p ^ T12) ||
+				!(*p ^ T13) || !(*p ^ T14) || !(*p ^ T15) || !(*p ^ T16) ||
+				!(*p ^ T17) || !(*p ^ T18) || !(*p ^ T19))
+			return (0);
 	}
 	return (-1);
 }
@@ -63,39 +63,33 @@ char	*ft_display(t_lry piece, int y, int p, int sqr)
 int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 {
 	static char	*ending;
-	int			x;
-	int			y;
-	int			xm;
-	int			ym;
+	int			n[4];
 
-	ft_opti(&x, &y, s, pcs[p]);
-	s->p = 0;
-	xm = (int)Scan(NULL, 'x', pcs[p]);
-	ym = (int)Scan(NULL, 'y', pcs[p]);
+	ft_opti(&n[0], &n[1], s, pcs[p]);
+	s->p = 0;	
+	n[2] = (int)Scan(NULL, 'x', pcs[p]);
+	n[3] = (int)Scan(NULL, 'y', pcs[p]);
 	while (!s->p)
 	{
-		while ((Scan(s->map, y, 0) & (pcs[p] >> x)) != 0)
-			if (++x && sqr < (x + xm) && ++y)
-				x = 0;
-			if (sqr < (y + ym))
-				return (0);
-		if (Scan(s->map, y, 0) & (pcs[p] >> x) || sqr < y + ym || sqr < x + xm)
+		while ((Scan(s->map, n[1], 0) & (pcs[p] >> n[0])) != 0)
+			if (++n[0] && sqr < (n[0] + n[2]) && ++n[1])
+				n[0] = 0;
+		if (Scan(s->map, n[1], 0) & (pcs[p] >> n[0]) || sqr < n[1] + n[3] || sqr < n[0] + n[2])
 			return (0);
-		ft_assim(s, (pcs[p] >> x), y, 1);
-		if (p == s->nbp - 1 && (ending = ft_display((pcs[p] >> x), y, p, sqr)))
+		ft_assim(s, (pcs[p] >> n[0]), n[1], 1);
+		if (p == s->nbp - 1 && (ending = ft_display((pcs[p] >> n[0]), n[1], p, sqr)))
 			if (s->nbp == 1)
 				ft_putstr(ending);
 		if (p == s->nbp - 1)
 			return (1);
-		if (s->nbp != 1 && !ft_addOpti(pcs[p], s, x, y))
+		if (s->nbp != 1 && !ft_addOpti(pcs[p], s, n[0], n[1]))
 			s->p = backtracking(pcs, p + 1, sqr, s);
-		if (s->p == 0 && ft_assim(s, (pcs[p] >> x), y, 0)
+		if (s->p == 0 && ft_assim(s, (pcs[p] >> n[0]), n[1], 0)
 				&& !ft_addOpti(pcs[p], s, 0, 0))
-			if (++x && sqr < (x + xm) && ++y)
-				x = 0;
+			if (++n[0] && sqr < (n[0] + n[2]) && ++n[1])
+				n[0] = 0;
 	}
-	ending = ft_display((pcs[p] >> x), y, p, sqr);
-	if (!p)
+	if ((ending = ft_display((pcs[p] >> n[0]), n[1], p, sqr)) && !p)
 		ft_putstr(ending);
 	return (1);
 }
