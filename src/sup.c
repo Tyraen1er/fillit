@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 01:40:01 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/27 16:24:15 by lmazzi           ###   ########.fr       */
+/*   Updated: 2017/02/27 17:15:43 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int		ft_addOpti(t_lry pc, t_riche *s, int x, int y)
 
 void	ft_opti(int *x, int *y, t_riche *s, t_lry pc)
 {
-	static int	p = 0;
 	int			a;
 
 	a = 0;

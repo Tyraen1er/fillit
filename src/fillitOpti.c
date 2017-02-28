@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 03:15:51 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/28 01:45:07 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/02/27 17:15:40 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,32 +75,24 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 	while (!s->p)
 	{
 		while ((Scan(s->map, y, 0) & (pcs[p] >> x)) != 0)
-		{
 			if (++x && sqr < (x + xm) && ++y)
 				x = 0;
 			if (sqr < (y + ym))
 				return (0);
-		}
 		if (Scan(s->map, y, 0) & (pcs[p] >> x) || sqr < y + ym || sqr < x + xm)
 			return (0);
 		ft_assim(s, (pcs[p] >> x), y, 1);
-		if (p == s->nbp - 1)
-		{
-			ending = ft_display((pcs[p] >> x), y, p, sqr);
+		if (p == s->nbp - 1 && (ending = ft_display((pcs[p] >> x), y, p, sqr)))
 			if (s->nbp == 1)
 				ft_putstr(ending);
+		if (p == s->nbp - 1)
 			return (1);
-		}
 		if (s->nbp != 1 && !ft_addOpti(pcs[p], s, x, y))
-		{
 			s->p = backtracking(pcs, p + 1, sqr, s);
-		}
 		if (s->p == 0 && ft_assim(s, (pcs[p] >> x), y, 0)
 				&& !ft_addOpti(pcs[p], s, 0, 0))
-		{
 			if (++x && sqr < (x + xm) && ++y)
 				x = 0;
-		}
 	}
 	ending = ft_display((pcs[p] >> x), y, p, sqr);
 	if (!p)
