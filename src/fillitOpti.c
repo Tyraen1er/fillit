@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 03:15:51 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/27 16:24:17 by lmazzi           ###   ########.fr       */
+/*   Updated: 2017/02/28 01:45:07 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,7 @@ char	*ft_display(t_lry piece, int y, int p, int sqr)
 		if (a == sqr && ++b)
 			a = -1;
 		if (((t_lry)0x8000000000000000ull >> (a + b * 16)) & piece)
-		{
-			if (p == 26)
-				end[a + b * (sqr + 1) + y * (sqr + 1)] = '.';
-			else
-				end[a + b * (sqr + 1) + y * (sqr + 1)] = p + 'A';
-		}
+			end[a + b * (sqr + 1) + y * (sqr + 1)] = p + 'A';
 	}
 	return (end);
 }
@@ -98,23 +93,13 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 		}
 		if (s->nbp != 1 && !ft_addOpti(pcs[p], s, x, y))
 		{
-//			ending = ft_display((pcs[p] >> x), y, p, sqr);
-//			ft_putstr(ending);
-//			write(1, "\n\n", 2);
 			s->p = backtracking(pcs, p + 1, sqr, s);
 		}
 		if (s->p == 0 && ft_assim(s, (pcs[p] >> x), y, 0)
 				&& !ft_addOpti(pcs[p], s, 0, 0))
 		{
-//			write(1, "Piece :",7);
-//			ft_putchar(p + 1 + 'A');
-//			write(1, "\n\n", 2);
-//			ending = ft_display((pcs[p] >> x), y, 26, sqr);
-//			ft_putstr(ending);
-//			write(1, "\n\n", 2);
 			if (++x && sqr < (x + xm) && ++y)
 				x = 0;
-//			printf("--------------\nposition de %c\nx = %d\ny = %d\n------------\n",p + 'A',x,y);
 		}
 	}
 	ending = ft_display((pcs[p] >> x), y, p, sqr);
