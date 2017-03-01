@@ -50,9 +50,10 @@ typedef struct		s_wag
 	unsigned short	*map;
 }					t_riche;
 
-t_lry				Scan(unsigned short *map, int xy, t_lry pc);
+t_lry				scn(unsigned short *map, int xy, t_lry pc);
 void				*ft_assim(t_riche *structure, t_lry t, int y, int choice);
-int					ft_addOpti(t_lry pc, t_riche *s, int x, int y);
+int					ft_addopti(t_lry pc, t_riche *s, int *x, int *y);
 void				ft_opti(int *x, int *y, t_riche *s, t_lry pc);
+int					rbt(t_lry *p);
 
 #endif

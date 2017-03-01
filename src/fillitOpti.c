@@ -13,23 +13,6 @@
 #include <stdio.h>
 #include "fillit.h"
 
-int		rbt(t_lry *p)
-{
-	if (*p)
-	{
-		while (!(T2 & *p))
-			*p = *p << 1;
-		while (!(T1 & *p))
-			*p = *p << 16;
-		if (!(*p ^ T1) || !(*p ^ T2) || !(*p ^ T3) || !(*p ^ T4) ||
-				!(*p ^ T5) || !(*p ^ T6) || !(*p ^ T7) || !(*p ^ T8) ||
-				!(*p ^ T9) || !(*p ^ T10) || !(*p ^ T11) || !(*p ^ T12) ||
-				!(*p ^ T13) || !(*p ^ T14) || !(*p ^ T15) || !(*p ^ T16) ||
-				!(*p ^ T17) || !(*p ^ T18) || !(*p ^ T19))
-			return (0);
-	}
-	return (-1);
-}
 
 char	*ft_display(t_lry piece, int y, int p, int sqr)
 {
