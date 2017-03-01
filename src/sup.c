@@ -13,7 +13,7 @@
 #include "fillit.h"
 #include <stdio.h>
 
-t_lry	Scan(unsigned short *map, int xy, t_lry piece)
+t_lry	scn(unsigned short *map, int xy, t_lry piece)
 {
 	t_lry	new;
 
@@ -35,21 +35,21 @@ t_lry	Scan(unsigned short *map, int xy, t_lry piece)
 	}
 }
 
-void	*ft_assim(t_riche *s, t_lry t, int y, int choice)
+void	*ft_assim(t_riche *s, t_lry pc, int y, int choice)
 {
 	int	a;
 
 	a = -1;
 	if (choice)
 		while (++a < 4)
-			s->map[a + y] |= (unsigned short)(t >> ((3 - a) * 16));
+			s->map[a + y] |= (unsigned short)(pc >> ((3 - a) * 16));
 	else
 		while (++a < 4)
-			s->map[a + y] ^= (unsigned short)(t >> ((3 - a) * 16));
+			s->map[a + y] ^= (unsigned short)(pc >> ((3 - a) * 16));
 	return (s);
 }
 
-int		ft_addOpti(t_lry pc, t_riche *s, int x, int y)
+int		ft_addopti(t_lry pc, t_riche *s, int *x, int *y)
 {
 	int		a;
 
@@ -57,8 +57,8 @@ int		ft_addOpti(t_lry pc, t_riche *s, int x, int y)
 	while (s->opt[a] != pc && s->opt[a])
 		++a;
 	s->opt[a] = pc;
-	s->optx[a] = x;
-	s->opty[a] = y;
+	s->optx[a] = *x;
+	s->opty[a] = *y;
 	return (0);
 }
 

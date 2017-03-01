@@ -60,34 +60,44 @@ char	*ft_display(t_lry piece, int y, int p, int sqr)
 	return (end);
 }
 
-int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
+int backtrack(t_riche *s, int sqr, p, int *n)
 {
-	static char	*ending;
-	int			n[4];
-
-	ft_opti(&n[0], &n[1], s, pcs[p]);
-	s->p = 0;	
-	n[2] = (int)Scan(NULL, 'x', pcs[p]);
-	n[3] = (int)Scan(NULL, 'y', pcs[p]);
-	while (!s->p)
-	{
-		while ((Scan(s->map, n[1], 0) & (pcs[p] >> n[0])) != 0)
-			if (++n[0] && sqr < (n[0] + n[2]) && ++n[1])
-				n[0] = 0;
-		if (Scan(s->map, n[1], 0) & (pcs[p] >> n[0]) || sqr < n[1] + n[3] || sqr < n[0] + n[2])
-			return (0);
-		ft_assim(s, (pcs[p] >> n[0]), n[1], 1);
-		if (p == s->nbp - 1 && (ending = ft_display((pcs[p] >> n[0]), n[1], p, sqr)))
+		if (p == s->nbp - 1 &&
+		(ending = ft_display((pcs[p] >> n[0]), n[1], p, sqr)))
 			if (s->nbp == 1)
 				ft_putstr(ending);
 		if (p == s->nbp - 1)
 			return (1);
-		if (s->nbp != 1 && !ft_addOpti(pcs[p], s, n[0], n[1]))
+		if (s->nbp != 1 && !ft_addopti(pcs[p], s, n[0], n[1]))
 			s->p = backtracking(pcs, p + 1, sqr, s);
 		if (s->p == 0 && ft_assim(s, (pcs[p] >> n[0]), n[1], 0)
-				&& !ft_addOpti(pcs[p], s, 0, 0))
+				&& !ft_addopti(pcs[p], s, 0, 0))
 			if (++n[0] && sqr < (n[0] + n[2]) && ++n[1])
 				n[0] = 0;
+		return (-1);
+}
+
+int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
+{
+	static char	*ending;
+	int			n[4];
+	int			back;
+
+	ft_opti(&n[0], &n[1], s, pcs[p]);
+	s->p = 0;	
+	n[2] = (int)scn(NULL, 'x', pcs[p]);
+	n[3] = (int)scn(NULL, 'y', pcs[p]);
+	while (!s->p)
+	{
+		while ((scn(s->map, n[1], 0) & (pcs[p] >> n[0])) != 0)
+			if (++n[0] && sqr < (n[0] + n[2]) && ++n[1])
+				n[0] = 0;
+		if (scn(s->map, n[1], 0) & (pcs[p] >> n[0]) || sqr < n[1] + n[3] ||
+		sqr < n[0] + n[2])
+			return (0);
+		ft_assim(s, (pcs[p] >> n[0]), n[1], 1);
+		if (-1 != (back = backtrack(s, sqr, p, n)))
+			return (back);
 	}
 	if ((ending = ft_display((pcs[p] >> n[0]), n[1], p, sqr)) && !p)
 		ft_putstr(ending);
