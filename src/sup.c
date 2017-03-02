@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 01:40:01 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/27 17:15:43 by lmazzi           ###   ########.fr       */
+/*   Updated: 2017/03/02 03:32:14 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,19 @@ t_lry	scn(unsigned short *map, int xy, t_lry piece)
 
 	if (!piece)
 	{
-	new = (t_lry)map[xy] << 48;
-	new |= (t_lry)map[xy + 1] << 32 | (t_lry)map[xy + 2] << 16 | map[xy + 3];
-	return (new);
+		new = (t_lry)map[xy] << 48;
+		new |= (t_lry)map[xy + 1] << 32 | (t_lry)map[xy + 2] << 16 | map[xy + 3];
+		return (new);
 	}
 	else
 	{
-	if (xy == 'x' && (xy = 3))
-		while (!(piece & (TXMAP >> xy)))
-			--xy;
-	if (xy == 'y' && (xy = 3))
-		while (!(piece & (TYMAP >> (16 * xy))))
-			--xy;
-	return (xy + 1);
+		if (xy == 'x' && (xy = 3))
+			while (!(piece & (TXMAP >> xy)))
+				--xy;
+		if (xy == 'y' && (xy = 3))
+			while (!(piece & (TYMAP >> (16 * xy))))
+				--xy;
+		return (xy + 1);
 	}
 }
 
@@ -67,26 +67,56 @@ void	*ft_assim(t_riche *s, t_lry pc, int y, int choice)
 	return (s);
 }
 
-int		ft_addopti(t_lry pc, t_riche *s, int *x, int *y)
+int		ft_opti(t_lry pc, t_riche *s, int *x, int *y)
 {
 	int		a;
+	int		b;
 
-	a = 0;
+	b = 0;
+	if (pc % 10 == 1 && (b = 1))
+		--pc
+			a = 0;
 	while (s->opt[a] != pc && s->opt[a])
 		++a;
-	s->opt[a] = pc;
-	s->optx[a] = *x;
-	s->opty[a] = *y;
+	if (b)
+	{
+		s->opt[a] = pc;
+		s->optx[a] = *x;
+		s->opty[a] = *y;
+	}
+	else
+	{
+		*x = s->optx[a];
+		*y = s->opty[a];
+	}
 	return (0);
 }
 
-void	ft_opti(int *x, int *y, t_riche *s, t_lry pc)
+char    *ft_display(t_lry piece, int y, int p, int sqr)
 {
-	int			a;
+	static char end[183] = {0};
+	int		a;
+	int		b;
 
 	a = 0;
-	while (s->opt[a] != pc && s->opt[a])
+	if (!end[0] && !(b = 0))
+		while (b < sqr && ++a)
+		{
+			if (a == sqr + 1 && !(a = 0) && ++b)
+				end[a - 1 + b * (sqr + 1)] = '\n';
+			else
+				end[a - 1 + b * (sqr + 1)] = '.';
+		}
+	end[sqr * (sqr + 1) - 1] = '\0';
+	a = -1;
+	b = 0;
+	while (b < 4)
+	{
 		++a;
-	*x = s->optx[a];
-	*y = s->opty[a];
+		if (a == sqr && ++b)
+			a = -1;
+		if (((t_lry)0x8000000000000000ull >> (a + b * 16)) & piece)
+			end[a + b * (sqr + 1) + y * (sqr + 1)] = p + 'A';
+	}
+	return (end);
 }

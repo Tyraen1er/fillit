@@ -6,42 +6,12 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 03:15:51 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/28 03:02:29 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/03/02 03:37:54 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "fillit.h"
-
-
-char	*ft_display(t_lry piece, int y, int p, int sqr)
-{
-	static char	end[183] = {0};
-	int			a;
-	int			b;
-
-	a = 0;
-	if (!end[0] && !(b = 0))
-		while (b < sqr && ++a)
-		{
-			if (a == sqr + 1 && !(a = 0) && ++b)
-				end[a - 1 + b * (sqr + 1)] = '\n';
-			else
-				end[a - 1 + b * (sqr + 1)] = '.';
-		}
-	end[sqr * (sqr + 1) - 1] = '\0';
-	a = -1;
-	b = 0;
-	while (b < 4)
-	{
-		++a;
-		if (a == sqr && ++b)
-			a = -1;
-		if (((t_lry)0x8000000000000000ull >> (a + b * 16)) & piece)
-			end[a + b * (sqr + 1) + y * (sqr + 1)] = p + 'A';
-	}
-	return (end);
-}
 
 int backtrack(t_riche *s, int sqr, p, int *n)
 {
@@ -51,10 +21,10 @@ int backtrack(t_riche *s, int sqr, p, int *n)
 				ft_putstr(ending);
 		if (p == s->nbp - 1)
 			return (1);
-		if (s->nbp != 1 && !ft_addopti(pcs[p], s, n[0], n[1]))
+		if (s->nbp != 1 && !ft_opti(pcs[p] + 1, s, n[0], n[1]))
 			s->p = backtracking(pcs, p + 1, sqr, s);
 		if (s->p == 0 && ft_assim(s, (pcs[p] >> n[0]), n[1], 0)
-				&& !ft_addopti(pcs[p], s, 0, 0))
+				&& !ft_opti(pcs[p] + 1, s, 0, 0))
 			if (++n[0] && sqr < (n[0] + n[2]) && ++n[1])
 				n[0] = 0;
 		return (-1);

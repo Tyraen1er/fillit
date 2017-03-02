@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/23 06:02:10 by eferrand          #+#    #+#             */
-/*   Updated: 2017/02/24 03:05:30 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/03/02 03:32:17 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct		s_wag
 t_lry				scn(unsigned short *map, int xy, t_lry pc);
 void				*ft_assim(t_riche *structure, t_lry t, int y, int choice);
 int					ft_addopti(t_lry pc, t_riche *s, int *x, int *y);
-void				ft_opti(int *x, int *y, t_riche *s, t_lry pc);
 int					rbt(t_lry *p);
+char				*ft_display(t_lry piece, int y, int p, int sqr);
 
 #endif
