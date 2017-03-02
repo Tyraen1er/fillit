@@ -1,35 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fillitOpti.c                                       :+:      :+:    :+:   */
+/*   fillitopti.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 03:15:51 by eferrand          #+#    #+#             */
-/*   Updated: 2017/03/01 22:18:46 by lmazzi           ###   ########.fr       */
+/*   Updated: 2017/03/02 07:29:30 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "fillit.h"
-
-int		rbt(t_lry *p)
-{
-	if (*p)
-	{
-		while (!(T2 & *p))
-			*p = *p << 1;
-		while (!(T1 & *p))
-			*p = *p << 16;
-		if (!(*p ^ T1) || !(*p ^ T2) || !(*p ^ T3) || !(*p ^ T4) ||
-				!(*p ^ T5) || !(*p ^ T6) || !(*p ^ T7) || !(*p ^ T8) ||
-				!(*p ^ T9) || !(*p ^ T10) || !(*p ^ T11) || !(*p ^ T12) ||
-				!(*p ^ T13) || !(*p ^ T14) || !(*p ^ T15) || !(*p ^ T16) ||
-				!(*p ^ T17) || !(*p ^ T18) || !(*p ^ T19))
-			return (0);
-	}
-	return (-1);
-}
 
 char	*dis(t_lry piece, int y, int p, int sqr)
 {
@@ -67,15 +49,15 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 	ft_opti(n, s, pcs[p]);
 	while (!s->p)
 	{
-		while ((Scan(s->map, n[1], 0) & (pcs[p] >> n[0])) != 0)
+		while ((scn(s->map, n[1], 0) & (pcs[p] >> n[0])) != 0)
 			if (++n[0] && sqr < (n[0] + n[2]) && ++n[1])
 				n[0] = 0;
-		if (Scan(s->map, n[1], 0) & (pcs[p] >> n[0])
+		if (scn(s->map, n[1], 0) & (pcs[p] >> n[0])
 				|| sqr < n[1] + n[3] || sqr < n[0] + n[2])
 			return (0);
 		as(s, (pcs[p] >> n[0]), n[1], 1);
 		if (s->nbp == 1 && (s->end = dis((pcs[p] >> n[0]), n[1], p, sqr)))
-				ft_putstr(s->end);
+			ft_putstr(s->end);
 		if (p == s->nbp - 1 && (s->end = dis((pcs[p] >> n[0]), n[1], p, sqr)))
 			return (1);
 		if (s->nbp != 1 && !ad(pcs[p], s, n[0], n[1]))
@@ -92,7 +74,7 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 int		begin(t_lry *pcs, t_riche *s)
 {
 	int				sqr;
-	int 			opt[4];
+	int				opt[4];
 
 	s->p = 0;
 	sqr = ft_root(2, (4 * s->nbp));

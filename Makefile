@@ -6,7 +6,7 @@
 #    By: eferrand <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/24 23:53:10 by eferrand          #+#    #+#              #
-#    Updated: 2017/02/04 23:13:55 by eferrand         ###   ########.fr        #
+#    Updated: 2017/03/02 07:29:50 by eferrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ INC_DIR		:=	./includes
 LIB_DIR		:=	./lib
 OBJ_DIR		:=	./obj
 
-FILE_LIST	:=	fillitOpti.c sup.c
+FILE_LIST	:=	fillitopti.c sup.c
 OBJ_FILES	:=	$(addprefix $(OBJ_DIR)/,$(FILE_LIST:.c=.o))
 
 LIB_FT		:=	$(LIB_DIR)/libft
