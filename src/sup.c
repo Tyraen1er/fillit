@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 01:40:01 by eferrand          #+#    #+#             */
-/*   Updated: 2017/03/01 20:22:48 by lmazzi           ###   ########.fr       */
+/*   Updated: 2017/03/01 20:55:32 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_lry	Scan(unsigned short *map, int xy, t_lry piece)
 	}
 }
 
-void	*ft_assim(t_riche *s, t_lry t, int y, int choice)
+void	*as(t_riche *s, t_lry t, int y, int choice)
 {
 	int	a;
 
@@ -49,7 +49,7 @@ void	*ft_assim(t_riche *s, t_lry t, int y, int choice)
 	return (s);
 }
 
-int		ft_addOpti(t_lry pc, t_riche *s, int x, int y)
+int		ad(t_lry pc, t_riche *s, int x, int y)
 {
 	int		a;
 
