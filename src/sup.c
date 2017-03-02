@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 01:40:01 by eferrand          #+#    #+#             */
-/*   Updated: 2017/03/01 19:20:07 by lmazzi           ###   ########.fr       */
+/*   Updated: 2017/03/02 04:33:58 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ t_lry	scn(unsigned short *map, int xy, t_lry piece)
 	if (!piece)
 	{
 		new = (t_lry)map[xy] << 48;
-		new |= (t_lry)map[xy + 1] << 32 | (t_lry)map[xy + 2] << 16 | map[xy + 3];
+		new |= (t_lry)map[xy + 1] << 32 | (t_lry)map[xy + 2] << 16 |
+			map[xy + 3];
 		return (new);
 	}
 	else
@@ -92,11 +93,11 @@ int		ft_opti(t_lry pc, t_riche *s, int *x, int *y)
 	return (0);
 }
 
-char    *ft_display(t_lry piece, int y, int p, int sqr)
+char	*ft_display(t_lry piece, int y, int p, int sqr)
 {
-	static char end[183] = {0};
-	int		a;
-	int		b;
+	static char	end[183] = {0};
+	int			a;
+	int			b;
 
 	a = 0;
 	if (!end[0] && !(b = 0))

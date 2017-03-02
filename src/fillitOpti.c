@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fillitOpti.c                                       :+:      :+:    :+:   */
+/*   fillitopti.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 03:15:51 by eferrand          #+#    #+#             */
-/*   Updated: 2017/03/01 19:18:50 by lmazzi           ###   ########.fr       */
+/*   Updated: 2017/03/02 04:35:47 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "fillit.h"
 
-int backtrack(t_riche *s, char **ending, int *n, t_lry *pcs)
+int		backtrack(t_riche *s, char **ending, int *n, t_lry *pcs)
 {
-		if (n[4] == s->nbp - 1 &&
-		(*ending = ft_display((pcs[n[4]] >> n[0]), n[1], n[4], n[5])))
-			if (s->nbp == 1)
-				ft_putstr(*ending);
-		if (n[4] == s->nbp - 1)
-			return (1);
-		if (s->nbp != 1 && !ft_opti(pcs[n[4]] + 1, s, n[0], n[1]))
-			s->p = backtracking(pcs, n[4] + 1, n[5], s);
-		if (s->p == 0 && ft_assim(s, (pcs[n[4]] >> n[0]), n[1], 0)
-				&& !ft_opti(pcs[n[4]] + 1, s, 0, 0))
-			if (++n[0] && n[5] < (n[0] + n[2]) && ++n[1])
-				n[0] = 0;
-		return (-1);
+	if (n[4] == s->nbp - 1 &&
+			(*ending = ft_display((pcs[n[4]] >> n[0]), n[1], n[4], n[5])))
+		if (s->nbp == 1)
+			ft_putstr(*ending);
+	if (n[4] == s->nbp - 1)
+		return (1);
+	if (s->nbp != 1 && !ft_opti(pcs[n[4]] + 1, s, n[0], n[1]))
+		s->p = backtracking(pcs, n[4] + 1, n[5], s);
+	if (s->p == 0 && ft_assim(s, (pcs[n[4]] >> n[0]), n[1], 0)
+			&& !ft_opti(pcs[n[4]] + 1, s, 0, 0))
+		if (++n[0] && n[5] < (n[0] + n[2]) && ++n[1])
+			n[0] = 0;
+	return (-1);
 }
 
 int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
@@ -39,7 +39,7 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 	n[4] = p;
 	n[5] = sqr;
 	ft_opti(&n[0], &n[1], s, pcs[n[4]]);
-	s->p = 0;	
+	s->p = 0;
 	n[2] = (int)scn(NULL, 'x', pcs[n[4]]);
 	n[3] = (int)scn(NULL, 'y', pcs[n[4]]);
 	while (!s->p)
@@ -48,7 +48,7 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 			if (++n[0] && n[5] < (n[0] + n[2]) && ++n[1])
 				n[0] = 0;
 		if (scn(s->map, n[1], 0) & (pcs[n[4]] >> n[0]) || n[5] < n[1] + n[3] ||
-		n[5] < n[0] + n[2])
+				n[5] < n[0] + n[2])
 			return (0);
 		ft_assim(s, (pcs[n[4]] >> n[0]), n[1], 1);
 		if (-1 != (back = backtrack(s, &ending, n, pcs)))
@@ -62,7 +62,7 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 int		begin(t_lry *pcs, t_riche *s)
 {
 	int				sqr;
-	int 			opt[4];
+	int				opt[4];
 
 	s->p = 0;
 	sqr = ft_root(2, (4 * s->nbp));
