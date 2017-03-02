@@ -6,26 +6,26 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 03:15:51 by eferrand          #+#    #+#             */
-/*   Updated: 2017/03/02 03:37:54 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/03/01 19:18:50 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "fillit.h"
 
-int backtrack(t_riche *s, int sqr, p, int *n)
+int backtrack(t_riche *s, char **ending, int *n, t_lry *pcs)
 {
-		if (p == s->nbp - 1 &&
-		(ending = ft_display((pcs[p] >> n[0]), n[1], p, sqr)))
+		if (n[4] == s->nbp - 1 &&
+		(*ending = ft_display((pcs[n[4]] >> n[0]), n[1], n[4], n[5])))
 			if (s->nbp == 1)
-				ft_putstr(ending);
-		if (p == s->nbp - 1)
+				ft_putstr(*ending);
+		if (n[4] == s->nbp - 1)
 			return (1);
-		if (s->nbp != 1 && !ft_opti(pcs[p] + 1, s, n[0], n[1]))
-			s->p = backtracking(pcs, p + 1, sqr, s);
-		if (s->p == 0 && ft_assim(s, (pcs[p] >> n[0]), n[1], 0)
-				&& !ft_opti(pcs[p] + 1, s, 0, 0))
-			if (++n[0] && sqr < (n[0] + n[2]) && ++n[1])
+		if (s->nbp != 1 && !ft_opti(pcs[n[4]] + 1, s, n[0], n[1]))
+			s->p = backtracking(pcs, n[4] + 1, n[5], s);
+		if (s->p == 0 && ft_assim(s, (pcs[n[4]] >> n[0]), n[1], 0)
+				&& !ft_opti(pcs[n[4]] + 1, s, 0, 0))
+			if (++n[0] && n[5] < (n[0] + n[2]) && ++n[1])
 				n[0] = 0;
 		return (-1);
 }
@@ -33,26 +33,28 @@ int backtrack(t_riche *s, int sqr, p, int *n)
 int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 {
 	static char	*ending;
-	int			n[4];
+	int			n[6];
 	int			back;
 
-	ft_opti(&n[0], &n[1], s, pcs[p]);
+	n[4] = p;
+	n[5] = sqr;
+	ft_opti(&n[0], &n[1], s, pcs[n[4]]);
 	s->p = 0;	
-	n[2] = (int)scn(NULL, 'x', pcs[p]);
-	n[3] = (int)scn(NULL, 'y', pcs[p]);
+	n[2] = (int)scn(NULL, 'x', pcs[n[4]]);
+	n[3] = (int)scn(NULL, 'y', pcs[n[4]]);
 	while (!s->p)
 	{
-		while ((scn(s->map, n[1], 0) & (pcs[p] >> n[0])) != 0)
-			if (++n[0] && sqr < (n[0] + n[2]) && ++n[1])
+		while ((scn(s->map, n[1], 0) & (pcs[n[4]] >> n[0])) != 0)
+			if (++n[0] && n[5] < (n[0] + n[2]) && ++n[1])
 				n[0] = 0;
-		if (scn(s->map, n[1], 0) & (pcs[p] >> n[0]) || sqr < n[1] + n[3] ||
-		sqr < n[0] + n[2])
+		if (scn(s->map, n[1], 0) & (pcs[n[4]] >> n[0]) || n[5] < n[1] + n[3] ||
+		n[5] < n[0] + n[2])
 			return (0);
-		ft_assim(s, (pcs[p] >> n[0]), n[1], 1);
-		if (-1 != (back = backtrack(s, sqr, p, n)))
+		ft_assim(s, (pcs[n[4]] >> n[0]), n[1], 1);
+		if (-1 != (back = backtrack(s, &ending, n, pcs)))
 			return (back);
 	}
-	if ((ending = ft_display((pcs[p] >> n[0]), n[1], p, sqr)) && !p)
+	if ((ending = ft_display((pcs[n[4]] >> n[0]), n[1], n[4], n[5])) && !n[4])
 		ft_putstr(ending);
 	return (1);
 }

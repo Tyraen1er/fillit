@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 01:40:01 by eferrand          #+#    #+#             */
-/*   Updated: 2017/03/02 03:32:14 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/03/01 19:20:07 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int		ft_opti(t_lry pc, t_riche *s, int *x, int *y)
 
 	b = 0;
 	if (pc % 10 == 1 && (b = 1))
-		--pc
-			a = 0;
+		--pc;
+	a = 0;
 	while (s->opt[a] != pc && s->opt[a])
 		++a;
 	if (b)
