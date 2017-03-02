@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 03:15:51 by eferrand          #+#    #+#             */
-/*   Updated: 2017/03/01 20:56:20 by lmazzi           ###   ########.fr       */
+/*   Updated: 2017/03/01 22:18:46 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,9 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 				|| sqr < n[1] + n[3] || sqr < n[0] + n[2])
 			return (0);
 		as(s, (pcs[p] >> n[0]), n[1], 1);
-		if (p == s->nbp - 1 && (s->end = dis((pcs[p] >> n[0]), n[1], p, sqr)))
-			if (s->nbp == 1)
+		if (s->nbp == 1 && (s->end = dis((pcs[p] >> n[0]), n[1], p, sqr)))
 				ft_putstr(s->end);
-		if (p == s->nbp - 1)
+		if (p == s->nbp - 1 && (s->end = dis((pcs[p] >> n[0]), n[1], p, sqr)))
 			return (1);
 		if (s->nbp != 1 && !ad(pcs[p], s, n[0], n[1]))
 			s->p = backtracking(pcs, p + 1, sqr, s);
