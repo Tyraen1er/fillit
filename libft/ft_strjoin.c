@@ -3,37 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lmazzi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/28 05:45:04 by eferrand          #+#    #+#             */
-/*   Updated: 2016/11/29 03:10:40 by eferrand         ###   ########.fr       */
+/*   Created: 2016/11/14 14:36:47 by lmazzi            #+#    #+#             */
+/*   Updated: 2016/11/30 23:03:52 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *str1, char const *str2)
+char			*ft_strjoin(char const *s1, char const *s2)
 {
-	int		a;
-	int		b;
-	char	*ret;
+	unsigned int	i;
+	unsigned int	a;
+	unsigned int	l;
+	char			*tab;
 
+	if (!s1 || !s2)
+		return (NULL);
+	l = ft_strlen(s1) + ft_strlen(s2);
+	tab = (char*)malloc(sizeof(char) * (l + 1));
+	if (!tab)
+		return (NULL);
+	i = 0;
 	a = 0;
-	b = 0;
-	if (!str1 || !str2)
-		return (NULL);
-	while (str1[a] != '\0')
+	while (s1[i] != '\0')
+	{
+		tab[i] = s1[i];
+		i++;
+	}
+	while (s2[a] != '\0')
+	{
+		tab[i + a] = s2[a];
 		a++;
-	while (str2[b] != '\0')
-		b++;
-	if (!(ret = (char *)malloc(a + b + 1)))
-		return (NULL);
-	a = -1;
-	b = -1;
-	while (str1[++a] != '\0')
-		ret[a] = ((char *)str1)[a];
-	while (str2[++b] != '\0')
-		ret[a++] = ((char *)str2)[b];
-	ret[a] = '\0';
-	return (ret);
+	}
+	tab[i + a] = '\0';
+	return (tab);
 }

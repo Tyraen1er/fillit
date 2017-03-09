@@ -3,46 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lmazzi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/18 02:53:13 by eferrand          #+#    #+#             */
-/*   Updated: 2017/01/24 02:40:46 by eferrand         ###   ########.fr       */
+/*   Created: 2016/11/16 18:43:56 by lmazzi            #+#    #+#             */
+/*   Updated: 2016/11/21 03:05:38 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char		ft_atoi2(char nb)
+int	ft_atoi(const char *str)
 {
-	if (nb == '-')
-		return ('n');
-	if (nb == '+')
-		return ('p');
-	else
-		return ('a');
-}
+	int c;
+	int i;
+	int j;
 
-int				ft_atoi(const char *nb)
-{
-	int		a;
-	char	c;
-	int		ret;
-
-	a = 0;
-	ret = 0;
-	while ((nb[a] >= 8 && nb[a] <= 13) || nb[a] == 32)
-		a++;
-	if ('a' < (c = ft_atoi2(nb[a])))
-		a++;
-	while (nb[a] > 47 && nb[a] < 58 &&
-			((ret * -10 - (nb[a] - '0')) > -2147483648))
-		ret = ret * 10 + (nb[a++] - '0');
-	if (nb[a] > 47 && nb[a] < 58 &&
-			(ret * -10 - (nb[a] - '0')) == -2147483648 && c == 'n')
-		return (-2147483648);
-	else if ((nb[a] < 48 || nb[a] > 57) && c != 'n')
-		return (ret);
-	else if ((nb[a] < 48 || nb[a] > 57) && c == 'n')
-		return (-ret);
-	return (0);
+	c = 0;
+	i = 0;
+	j = 1;
+	while ((str[i] >= 8 && str[i] <= 13) || str[i] == 32)
+		i++;
+	if (str[i] == '-')
+	{
+		j *= -1;
+		i++;
+	}
+	else if (str[i] == '+')
+		i++;
+	while (str[i] >= 48 && str[i] <= 57)
+	{
+		c *= 10;
+		c += str[i] - 48;
+		i++;
+	}
+	c *= j;
+	return (c);
 }

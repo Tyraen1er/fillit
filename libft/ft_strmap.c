@@ -3,33 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lmazzi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/17 22:45:56 by eferrand          #+#    #+#             */
-/*   Updated: 2016/11/29 03:00:40 by eferrand         ###   ########.fr       */
+/*   Created: 2016/11/14 11:30:52 by lmazzi            #+#    #+#             */
+/*   Updated: 2016/11/20 23:15:58 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmap(const char *str, char (*f)(char))
+char	*ft_strmap(char const *s, char (*f)(char))
 {
-	int		a;
-	char	*res;
+	int		i;
+	int		size;
+	char	*tab;
 
-	if (!str)
-		return (NULL);
-	a = 0;
-	while (str[a] != '\0')
-		a++;
-	if (!(res = malloc(a + 1)))
-		return (NULL);
-	a = 0;
-	while (f != NULL && str[a] != '\0')
+	i = 0;
+	if (s && f)
 	{
-		res[a] = f(str[a]);
-		a++;
+		size = ft_strlen((char*)s);
+		tab = (char*)malloc(sizeof(char) * (size + 1));
+		if (!tab)
+			return (NULL);
+		i = 0;
+		while (s[i] != '\0')
+		{
+			tab[i] = f(s[i]);
+			i++;
+		}
+		tab[i] = '\0';
+		return (tab);
 	}
-	res[a] = '\0';
-	return (res);
+	return (NULL);
 }

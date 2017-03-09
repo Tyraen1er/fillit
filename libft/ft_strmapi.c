@@ -3,33 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lmazzi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/17 22:46:03 by eferrand          #+#    #+#             */
-/*   Updated: 2016/11/29 03:06:14 by eferrand         ###   ########.fr       */
+/*   Created: 2016/11/14 11:51:10 by lmazzi            #+#    #+#             */
+/*   Updated: 2016/11/20 23:15:31 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmapi(const char *str, char (*f)(unsigned int, char))
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	unsigned int	a;
-	char			*res;
+	unsigned int	i;
+	char			*tab;
+	size_t			size;
 
-	if (!str && !f)
-		return (NULL);
-	a = 0;
-	while (str[a] != '\0')
-		a++;
-	if (!(res = (char *)malloc(a + 1)))
-		return (NULL);
-	a = 0;
-	while (f != NULL && str[a] != '\0')
+	i = 0;
+	if (s && f)
 	{
-		res[a] = f(a, str[a]);
-		a++;
+		size = ft_strlen((char*)s);
+		tab = (char*)malloc(sizeof(char) * (size + 1));
+		if (!tab)
+			return (NULL);
+		i = 0;
+		while (s[i] != '\0')
+		{
+			tab[i] = f(i, s[i]);
+			i++;
+		}
+		tab[i] = '\0';
+		return (tab);
 	}
-	res[a] = '\0';
-	return (res);
+	return (NULL);
 }

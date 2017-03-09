@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lmazzi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/22 22:31:53 by eferrand          #+#    #+#             */
-/*   Updated: 2016/11/27 18:18:31 by eferrand         ###   ########.fr       */
+/*   Created: 2016/11/18 04:27:00 by lmazzi            #+#    #+#             */
+/*   Updated: 2016/11/20 20:38:06 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,29 @@
 
 t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	t_list	*begin;
-	t_list	*tmp;
+	t_list *orig;
+	t_list *curr;
 
-	begin = NULL;
+	orig = NULL;
 	while (lst != NULL)
 	{
-		if (begin == NULL)
+		if (orig == NULL)
 		{
-			begin = ft_lstnew(lst->content, lst->content_size);
-			if (begin == NULL)
+			orig = ft_lstnew(lst->content, lst->content_size);
+			if (orig == NULL)
 				return (NULL);
-			begin = f(begin);
-			tmp = begin;
+			orig = f(orig);
+			curr = orig;
 		}
 		else
 		{
-			tmp->next = ft_lstnew(lst->content, lst->content_size);
-			if (begin == NULL)
+			curr->next = ft_lstnew(lst->content, lst->content_size);
+			if (orig == NULL)
 				return (NULL);
-			tmp->next = f(tmp->next);
-			tmp = tmp->next;
+			curr->next = f(curr->next);
+			curr = curr->next;
 		}
 		lst = lst->next;
 	}
-	return (begin);
+	return (orig);
 }

@@ -3,60 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lmazzi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/21 04:07:05 by eferrand          #+#    #+#             */
-/*   Updated: 2016/11/29 02:49:48 by eferrand         ###   ########.fr       */
+/*   Created: 2016/11/15 22:53:29 by lmazzi            #+#    #+#             */
+/*   Updated: 2016/11/20 23:19:14 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*ft_itoa_len(int nb)
+static char	*ft_createint(int n, int counter, int lim, int neg)
 {
-	char	*ret;
-	int		len;
+	char	*tab;
+	int		nb;
+	int		mod;
 
-	len = 1;
-	if (nb == -2147483648)
-		return (ft_strdup("-2147483648"));
-	else if (nb < 0)
-	{
-		len++;
-		nb = -nb;
-	}
-	while (nb > 9 && len++ > 0)
-		nb /= 10;
-	if (!(ret = (char *)malloc(++len)))
+	tab = (char*)malloc(sizeof(char) * (counter + lim + neg + 1));
+	if (!tab)
 		return (NULL);
-	ret[--len] = '\0';
-	while (len > 0)
-		ret[--len] = 'a';
-	return (ret);
+	nb = n;
+	tab[counter + lim + neg] = '\0';
+	while (counter)
+	{
+		counter--;
+		mod = (nb % 10);
+		tab[counter + lim + neg] = (mod + 48);
+		nb = (nb / 10);
+	}
+	if (lim)
+		tab[counter + neg] = '2';
+	if (neg)
+		tab[counter] = '-';
+	return (tab);
 }
 
-char		*ft_itoa(int nb)
+static int	fcounter(int counter, int nb)
 {
-	char	*ret;
-	int		a;
-
-	a = 0;
-	if ((ret = ft_itoa_len(nb)) == NULL)
-		return (NULL);
-	if (nb == -2147483648)
-		return (ret);
-	else if (nb < 0)
-	{
-		nb = -nb;
-		ret[a] = '-';
-	}
-	while (ret[a] != '\0')
-		a++;
 	while (nb > 9)
 	{
-		ret[--a] = 48 + nb % 10;
-		nb /= 10;
+		nb = (nb / 10);
+		counter++;
 	}
-	ret[--a] = 48 + nb;
-	return (ret);
+	return (counter);
+}
+
+char		*ft_itoa(int n)
+{
+	int counter;
+	int neg;
+	int lim;
+
+	lim = 0;
+	neg = 0;
+	counter = 1;
+	if (n == -2147483648)
+	{
+		neg = 1;
+		lim = 1;
+		n = 147483648;
+	}
+	if (n < 0)
+	{
+		neg = 1;
+		n = n * -1;
+	}
+	return (ft_createint(n, fcounter(counter, n), lim, neg));
 }

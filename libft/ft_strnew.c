@@ -3,23 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lmazzi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/18 03:24:19 by eferrand          #+#    #+#             */
-/*   Updated: 2016/11/29 02:17:27 by eferrand         ###   ########.fr       */
+/*   Created: 2016/11/14 10:37:58 by lmazzi            #+#    #+#             */
+/*   Updated: 2016/11/20 23:56:25 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnew(size_t len)
+char	*ft_strnew(size_t size)
 {
-	char *str;
+	size_t	i;
+	char	*tab;
 
-	if (!(str = malloc(len + 1)))
+	tab = (char*)malloc(sizeof(char) * (size + 1));
+	if (!tab)
 		return (NULL);
-	str[len] = '\0';
-	while (len--)
-		str[len] = '\0';
-	return (str);
+	i = 0;
+	while (i < size)
+	{
+		tab[i] = '\0';
+		i++;
+	}
+	tab[i] = '\0';
+	return (tab);
 }

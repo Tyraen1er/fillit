@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lmazzi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/18 03:03:58 by eferrand          #+#    #+#             */
-/*   Updated: 2016/11/29 01:16:15 by eferrand         ###   ########.fr       */
+/*   Created: 2016/11/17 00:04:23 by lmazzi            #+#    #+#             */
+/*   Updated: 2016/11/19 18:51:47 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,22 @@ char	*ft_strstr(const char *big, const char *little)
 {
 	int		i;
 	int		a;
+	char	*stack;
+	char	*need;
 
+	stack = (char*)big;
+	need = (char*)little;
 	i = 0;
 	a = 0;
-	if ((char)little[a] == '\0')
-		return ((char *)big);
-	while ((char)big[i] != '\0')
+	if (need[a] == '\0')
+		return (stack);
+	while (stack[i] != '\0')
 	{
-		while ((char)big[i + a] == (char)little[a]
-				&& (char)big[i + a] != '\0' && (char)little[a] != '\0')
+		while (stack[i + a] == need[a]
+				&& stack[i + a] != '\0' && need[a] != '\0')
 			a++;
-		if ((char)little[a] == '\0')
-			return ((char*)big + i);
+		if (need[a] == '\0')
+			return (stack + i);
 		a = 0;
 		i++;
 	}

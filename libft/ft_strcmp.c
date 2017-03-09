@@ -3,21 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lmazzi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/17 22:26:09 by eferrand          #+#    #+#             */
-/*   Updated: 2017/01/19 05:01:28 by eferrand         ###   ########.fr       */
+/*   Created: 2016/11/16 19:08:25 by lmazzi            #+#    #+#             */
+/*   Updated: 2016/11/19 18:03:40 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strcmp(const char *stra, const char *strb)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	while (*stra && *strb && *stra == *strb)
+	int i;
+
+	i = 0;
+	while (((unsigned char)s1[i] != '\0')
+			&& ((unsigned char)s1[i] == (unsigned char)s2[i]))
 	{
-		++strb;
-		++stra;
+		s1 = s1 + 1;
+		s2 = s2 + 1;
 	}
-	return ((unsigned char)*stra - (unsigned char)*strb);
+	return ((unsigned char)*s1 - (unsigned char)*s2);
 }

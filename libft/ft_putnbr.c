@@ -3,36 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lmazzi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/21 00:46:19 by eferrand          #+#    #+#             */
-/*   Updated: 2016/11/27 18:17:41 by eferrand         ###   ########.fr       */
+/*   Created: 2016/11/15 23:03:33 by lmazzi            #+#    #+#             */
+/*   Updated: 2016/11/18 05:30:22 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	ft_putnbr_2(int nb)
+void		ft_putnbr(int n)
 {
-	char	c;
-
-	if (nb > 9)
-		ft_putnbr_2(nb / 10);
-	c = '0' + nb % 10;
-	write(1, &c, 1);
-}
-
-void		ft_putnbr(int nb)
-{
-	if (nb == -2147483648)
-		write(1, "-2147483648", 11);
-	else
+	if (n == -2147483648)
 	{
-		if (nb < 0)
-		{
-			nb = -nb;
-			write(1, "-", 1);
-		}
-		ft_putnbr_2(nb);
+		ft_putchar('-');
+		ft_putchar('2');
+		n = 147483648;
 	}
+	if (n < 0)
+	{
+		ft_putchar('-');
+		n = n * -1;
+	}
+	if (n >= 10)
+	{
+		ft_putnbr(n / 10);
+		ft_putchar((n % 10) + 48);
+	}
+	else
+		ft_putchar(n + 48);
 }

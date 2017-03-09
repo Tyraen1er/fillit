@@ -3,31 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lmazzi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/18 03:02:54 by eferrand          #+#    #+#             */
-/*   Updated: 2016/11/28 00:08:11 by eferrand         ###   ########.fr       */
+/*   Created: 2016/11/17 00:02:00 by lmazzi            #+#    #+#             */
+/*   Updated: 2016/11/19 19:11:14 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strnstr(const char *src, const char *str, size_t n)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
 	size_t	i;
 	size_t	a;
+	char	*stack;
+	char	*need;
 
+	stack = (char*)haystack;
+	need = (char*)needle;
 	i = 0;
 	a = 0;
-	if (str[a] == '\0')
-		return ((char *)src);
-	while (src[i] != '\0' && i < n)
+	if (need[a] == '\0')
+		return (stack);
+	while (stack[i] != '\0' && i < len)
 	{
-		while (src[i + a] == str[a]
-				&& src[i + a] != '\0' && str[a] != '\0' && (i + a) < n)
+		while (stack[i + a] == need[a]
+				&& stack[i + a] != '\0' && need[a] != '\0' && (i + a) < len)
 			a++;
-		if (str[a] == '\0')
-			return ((char *)src + i);
+		if (need[a] == '\0')
+			return (stack + i);
 		i++;
 		a = 0;
 	}

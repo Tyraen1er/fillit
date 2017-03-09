@@ -3,17 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lmazzi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/17 22:23:10 by eferrand          #+#    #+#             */
-/*   Updated: 2017/01/19 05:20:23 by eferrand         ###   ########.fr       */
+/*   Created: 2016/11/06 18:02:31 by lmazzi            #+#    #+#             */
+/*   Updated: 2016/11/17 22:22:53 by lmazzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *tab, size_t n)
+void	ft_bzero(void *s, size_t n)
 {
-	while (n--)
-		((char *)tab)[n] = 0;
+	size_t	i;
+	char	*str;
+
+	i = 0;
+	str = (char *)s;
+	while (n)
+	{
+		str[i] = 0;
+		i++;
+		n--;
+	}
 }
