@@ -6,7 +6,7 @@
 #    By: eferrand <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/24 23:53:10 by eferrand          #+#    #+#              #
-#    Updated: 2017/03/09 03:49:25 by eferrand         ###   ########.fr        #
+#    Updated: 2017/03/09 04:06:08 by eferrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,15 +26,15 @@ LINK		:=	$(LIB_FT_LINK)
 CC			:=	gcc
 CFLAGS		:=	-Wall -Wextra -Werror
 
-all: libs $(NAME)
+all: $(NAME)
 
 libs:
 	@make -C $(LIB_FT)
 
-$(NAME): $(OBJ_FILES)
+$(NAME): libs $(OBJ_FILES)
 	$(CC) $(CFLAGS) $(LINK) $(OBJ_FILES) -o $(NAME)
 
-$(OBJ_FILES)/%.o: $(FILE_LIST)
+$(OBJ_FILES)/%.o:
 	$(CC) $(CFLAGS) $(INCLUDES) -c $(FILE_LIST)
 
 clean:
