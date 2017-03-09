@@ -6,7 +6,7 @@
 #    By: eferrand <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/24 23:53:10 by eferrand          #+#    #+#              #
-#    Updated: 2017/03/06 10:51:25 by eferrand         ###   ########.fr        #
+#    Updated: 2017/03/09 02:57:55 by eferrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,10 +32,10 @@ libs:
 	@make -C $(LIB_FT)
 
 $(NAME): $(OBJ_FILES)
-	$(CC) $(LINK) $(OBJ_FILES) -o $(NAME)
+	gcc -Wall -Werror -Wextra ./libft/libft.a sup.o fillitopti.o -o fillit
 
 $(OBJ_FILES)/%.o: $(FILE_LIST)
-	$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
+	gcc -Wall -Werror -Wextra -I./libft/ -c sup.c fillitopti.c
 
 clean:
 	rm -rf $(OBJ_FILES)
