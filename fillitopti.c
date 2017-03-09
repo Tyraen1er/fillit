@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 03:15:51 by eferrand          #+#    #+#             */
-/*   Updated: 2017/03/08 16:25:08 by lmazzi           ###   ########.fr       */
+/*   Updated: 2017/03/09 03:22:49 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,14 +124,15 @@ int		main(int argc, char **argv)
 	int		x;
 	int		y;
 
+	if (argc != 1)
+		ft_putstr("usage: ./fillit tetriminos_file\n");
 	x = 0;
 	y = 0;
 	s->nbp = 0;
 	s->opt = (t_lry[19]){0};
 	s->optx = (int[19]){0};
 	s->opty = (int[19]){0};
-	if (argc != 2 || (y = open(argv[1], O_RDONLY)) == -1 ||
-			(x = read(y, r, 546)) == -1)
+	if ((y = open(argv[1], O_RDONLY)) == -1 || (x = read(y, r, 546)) == -1)
 	{
 		ft_putstr("error\n");
 		return (0);
@@ -139,9 +140,7 @@ int		main(int argc, char **argv)
 	while (21 * s->nbp <= x)
 		++s->nbp;
 	r[x] = 0;
-	s->p = -1;
-	s->p = ft_save(r, s);
-	if (s->p == -1)
+	if ((s->p = -1) && ft_save(r, s) == -1)
 		ft_putstr("error\n");
 	return (0);
 }
