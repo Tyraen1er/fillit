@@ -6,7 +6,7 @@
 #    By: eferrand <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/24 23:53:10 by eferrand          #+#    #+#              #
-#    Updated: 2017/03/09 02:57:55 by eferrand         ###   ########.fr        #
+#    Updated: 2017/03/09 03:09:58 by eferrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJ_FILES	:=	$(FILE_LIST:.c=.o)
 LIB_FT		:=	./libft
 LIB_FT_INC	:=	-I $(LIB_FT)
 
-LIB_FT_LINK	:=	-l $(LIB_FT)/libft
+LIB_FT_LINK	:=	$(LIB_FT)/libft.a
 
 INCLUDES	:=	$(LIB_FT_INC)
 LINK		:=	$(LIB_FT_LINK)
@@ -32,10 +32,10 @@ libs:
 	@make -C $(LIB_FT)
 
 $(NAME): $(OBJ_FILES)
-	gcc -Wall -Werror -Wextra ./libft/libft.a sup.o fillitopti.o -o fillit
+	$(CC) $(CFLAGS) $(LINK) $(OBJ_FILES) -o $(NAME)
 
 $(OBJ_FILES)/%.o: $(FILE_LIST)
-	gcc -Wall -Werror -Wextra -I./libft/ -c sup.c fillitopti.c
+	$(CC) $(CFLAGS) $(INCLUDES) -c $(FILE_LIST)
 
 clean:
 	rm -rf $(OBJ_FILES)
