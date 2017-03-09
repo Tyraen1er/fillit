@@ -6,7 +6,7 @@
 /*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 03:15:51 by eferrand          #+#    #+#             */
-/*   Updated: 2017/03/06 10:50:29 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/03/09 01:41:46 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int		backtracking(t_lry *pcs, int p, int sqr, t_riche *s)
 int		begin(t_lry *pcs, t_riche *s)
 {
 	int				sqr;
-	int				opt[4];
 
 	s->p = 0;
 	sqr = ft_root(2, (4 * s->nbp));
