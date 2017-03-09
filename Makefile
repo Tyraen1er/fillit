@@ -6,7 +6,7 @@
 #    By: eferrand <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/24 23:53:10 by eferrand          #+#    #+#              #
-#    Updated: 2017/03/09 03:09:58 by eferrand         ###   ########.fr        #
+#    Updated: 2017/03/09 03:49:25 by eferrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,9 +38,11 @@ $(OBJ_FILES)/%.o: $(FILE_LIST)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $(FILE_LIST)
 
 clean:
-	rm -rf $(OBJ_FILES)
+	@make -C $(LIB_FT) clean
+	rm -f $(OBJ_FILES)
 
-fclean: clean
+fclean: clean 
+	@make -C $(LIB_FT) fclean
 	rm -f $(NAME)
 
 relibs:
